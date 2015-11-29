@@ -16,7 +16,7 @@ import retrofit.mime.TypedFile;
 public interface OldFIleApi {
 
     @Multipart
-    @POST("/upload")
+    @POST("/com.joco.nyomtserv2.sajatservices/upload")
     void upload(@Part("file") TypedFile file,
                 Callback<String> cb);
 

@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.kite.joco.retrooldfileupload.rest.OldFileService;
 
 import java.io.File;
-import java.util.Date;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -141,9 +140,9 @@ if(size != null){
 
         TypedFile typedFile = new TypedFile("multipart/form-data", file);
 
-        //RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+       // RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
 
-  /*      try {
+        try {
             OldFileService.get().upload(typedFile, new Callback<String>() {
                 @Override
                 public void success(String s, Response response) {
@@ -152,15 +151,15 @@ if(size != null){
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.e("UPLOAD","failure "+error.getResponse());
+                    Log.e("UPLOAD","failure "+error.getResponse() + " " +error.getMessage() );
                 }
             });
 
         } catch (Exception ex ){
             System.out.println(ex.getStackTrace());
-        }*/
+        }
 
-        try {
+      /*  try {
             OldFileService.get().datumkuld(new Date(), new Callback<String>() {
                 @Override
                 public void success(String s, Response response) {
@@ -175,7 +174,7 @@ if(size != null){
         }
         catch ( Exception ex){
 
-        }
+        }*/
 
     }
 
