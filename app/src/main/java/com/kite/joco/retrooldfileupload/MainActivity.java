@@ -11,10 +11,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kite.joco.retrooldfileupload.entity.Ember;
+import com.kite.joco.retrooldfileupload.entity.Partner;
 import com.kite.joco.retrooldfileupload.rest.OldFileService;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.ResponseBody;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -43,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 selectFromGallery();
                 break;
             case (R.id.btnSend):
-                sendPicOld();
+                sendPicNew();
                 break;
             default:
         }
@@ -134,6 +141,40 @@ if(size != null){
         return res;
     }
 
+    public void sendPicNew(){
+        File file = new File(selectedImagePath);
+        //OldFIleApi fileAPIService = OldFileService.get.(OldFIleApi.class);
+
+        TypedFile typedFile = new TypedFile("multipart/form-data", file);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+
+        try {
+            OldFileService.get().uploadnew(typedFile, new Callback<ResponseBody>() {
+                @Override
+                public void success(ResponseBody s, Response response) {
+                    Log.i("UPLOADNEW", "Succes");
+                    try {
+                        Log.i("UPLOADNEW", s.string());
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.e("UPLOADNEW", "failure " + error.getMessage());
+                }
+            });
+
+        } catch (Exception ex ){
+            System.out.println(ex.getStackTrace());
+        }
+
+    }
+
+
+
     public void sendPicOld(){
         //Toast.makeText(this,"Ezt fogja elküldeni: "+selectedImagePath,Toast.LENGTH_LONG).show();
         File file = new File(selectedImagePath);
@@ -141,9 +182,9 @@ if(size != null){
 
         TypedFile typedFile = new TypedFile("multipart/form-data", file);
 
-        //RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
 
-  /*      try {
+        try {
             OldFileService.get().upload(typedFile, new Callback<String>() {
                 @Override
                 public void success(String s, Response response) {
@@ -152,14 +193,48 @@ if(size != null){
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.e("UPLOAD","failure "+error.getResponse());
+                    Log.e("UPLOAD","failure "+ error.getMessage());
                 }
-            });
+           });
 
         } catch (Exception ex ){
             System.out.println(ex.getStackTrace());
-        }*/
+        }
+       Calendar c = Calendar.getInstance(new Locale("hu","HU"));
+        c.set(1974, 4, 8);
+        Ember e = new Ember();
+        e.setNev("Próba");
+        e.setSzulido(c.getTime());
+        Log.i("EMBER","Nev: " + e.getNev() + " szulido: " + e.getSzulido());
+       /* Partner ps = new Partner();
+        ps.setModifiedTime(c.getTime());
+        ps.setPartnerAdoszam("54546456");
+        ps.setPartnerCim("valami köz 1");
+        ps.setPartnerEmail("partner@mail.com");
+        ps.setPartnerIrsz("4181");
+        ps.setPartnerNev("Próba Róbert");
+        ps.setPartnerKod("158545");
+        ps.setPartnerTelepules("Kaba");
+        ps.setStatus("A");*/
 
+        try {
+            OldFileService.get().sendEmber(e, new Callback<String>() {
+                @Override
+                public void success(String s, Response response) {
+                    Log.i("Success", " Ember sent");
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.e("Failure"," Ember did not send." + error.getStackTrace().toString());
+                }
+            });
+        }
+        catch (Exception ex) {
+            Log.e("Exception",ex.getMessage());
+        }
+
+/*
         try {
             OldFileService.get().datumkuld(new Date(), new Callback<String>() {
                 @Override
@@ -175,7 +250,7 @@ if(size != null){
         }
         catch ( Exception ex){
 
-        }
+        }*/
 
     }
 
