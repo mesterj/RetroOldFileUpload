@@ -7,6 +7,7 @@ import com.squareup.okhttp.ResponseBody;
 import java.util.Date;
 
 import retrofit.Callback;
+import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Headers;
@@ -26,7 +27,7 @@ public interface OldFIleApi {
 
     @Multipart
     @POST("/upload")
-    void uploadnew(@Part("file") TypedFile file,Callback<ResponseBody> cb);
+    void uploadnew(@Part("file") TypedFile file,Callback<Response> cb);
 
     @GET("/datumos/{date}")
     void datumkuld(@Body Date date, Callback<String> cb);

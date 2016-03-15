@@ -150,12 +150,12 @@ if(size != null){
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
 
         try {
-            OldFileService.get().uploadnew(typedFile, new Callback<ResponseBody>() {
+            OldFileService.get().uploadnew(typedFile, new Callback<Response>() {
                 @Override
-                public void success(ResponseBody s, Response response) {
+                public void success(Response s, Response response) {
                     Log.i("UPLOADNEW", "Succes");
                     try {
-                        Log.i("UPLOADNEW", s.string());
+                        Log.i("UPLOADNEW", s.getBody().toString());
                     }catch (Exception e){
                         e.printStackTrace();
                     }
