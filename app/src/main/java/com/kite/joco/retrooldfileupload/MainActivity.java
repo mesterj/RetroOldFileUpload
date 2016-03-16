@@ -152,24 +152,24 @@ if(size != null){
         try {
             OldFileService.get().uploadnew(typedFile, new Callback<Response>() {
                 @Override
-                public void success(Response s, Response response) {
+                public void success(Response response, retrofit.client.Response response2) {
                     Log.i("UPLOADNEW", "Succes");
                     try {
-                        Log.i("UPLOADNEW", s.getBody().toString());
-                    }catch (Exception e){
+                        Log.i("UPLOADNEW","valami");
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.e("UPLOADNEW", "failure " + error.getMessage());
+                    Log.i("UPLOADNEW", "Failure");
+                    //Log.i("UPLOADNEW", error.printStackTrace());
                 }
             });
-
-        } catch (Exception ex ){
-            System.out.println(ex.getStackTrace());
-        }
+        }catch (Exception ex){
+                    ex.printStackTrace();
+                }
 
     }
 
@@ -184,7 +184,7 @@ if(size != null){
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
 
-        try {
+        /*try {
             OldFileService.get().upload(typedFile, new Callback<String>() {
                 @Override
                 public void success(String s, Response response) {
@@ -199,7 +199,7 @@ if(size != null){
 
         } catch (Exception ex ){
             System.out.println(ex.getStackTrace());
-        }
+        }*/
        Calendar c = Calendar.getInstance(new Locale("hu","HU"));
         c.set(1974, 4, 8);
         Ember e = new Ember();
@@ -217,7 +217,7 @@ if(size != null){
         ps.setPartnerTelepules("Kaba");
         ps.setStatus("A");*/
 
-        try {
+       /* try {
             OldFileService.get().sendEmber(e, new Callback<String>() {
                 @Override
                 public void success(String s, Response response) {
@@ -233,7 +233,7 @@ if(size != null){
         catch (Exception ex) {
             Log.e("Exception",ex.getMessage());
         }
-
+*/
 /*
         try {
             OldFileService.get().datumkuld(new Date(), new Callback<String>() {
